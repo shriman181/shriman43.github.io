@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarivex — Talent Intelligence for the Middle Market</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --ivory:#F8F6F1;
+  --ivory-2:#EFECE5;
+  --cream:#FAFAF7;
+  --midnight:#17202E;
+  --midnight-2:#1E2D40;
+  --midnight-3:#243347;
+  --sage:#5E8A74;
+  --sage-light:#C4DDD1;
+  --sage-mid:#A3C2B4;
+  --sage-dark:#3A5E4C;
+  --ochre:#B8935A;
+  --ochre-light:#EAD7B0;
+  --ochre-dark:#8C6B35;
+  --mauve:#8B7FA8;
+  --mauve-light:#D4CEE3;
+  --rose:#C4877A;
+  --text:#17202E;
+  --text-muted:#6B7888;
+  --text-xmuted:#9AA3AF;
+  --border:rgba(23,32,46,0.1);
+  --border-light:rgba(23,32,46,0.06);
+}
+body{background:var(--ivory);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 max(2rem,calc(50vw - 600px));transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(248,246,241,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--border)}
+.logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--midnight);text-decoration:none;display:flex;align-items:center;gap:7px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--sage);display:inline-block;margin-bottom:1px}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none}
+.nav-links a{font-size:14px;color:var(--text-muted);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:14px}
+.btn-ghost{font-size:14px;color:var(--text-muted);text-decoration:none;font-weight:500;transition:color .2s}
+.btn-ghost:hover{color:var(--text)}
+.btn-dark{display:inline-flex;align-items:center;gap:6px;background:var(--midnight);color:var(--ivory);font-size:13px;font-weight:600;padding:9px 20px;border-radius:100px;text-decoration:none;transition:background .2s,transform .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-dark:hover{background:var(--midnight-2);transform:translateY(-1px)}
+.btn-sage{display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:white;font-size:15px;font-weight:600;padding:14px 28px;border-radius:100px;text-decoration:none;transition:background .2s,transform .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-sage:hover{background:var(--sage-dark);transform:translateY(-1px)}
+.btn-outline{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--border);color:var(--text);font-size:15px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;transition:border-color .2s,background .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-outline:hover{border-color:rgba(23,32,46,.3);background:rgba(23,32,46,.04)}
+
+/* ── COMMON ── */
+.px{padding-left:max(2rem,calc(50vw - 600px));padding-right:max(2rem,calc(50vw - 600px))}
+section{padding:100px max(2rem,calc(50vw - 600px))}
+.section-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';display:block;width:22px;height:1.5px;background:var(--sage);flex-shrink:0}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.15;color:var(--text)}
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in.d1{transition-delay:.1s}.fade-in.d2{transition-delay:.2s}.fade-in.d3{transition-delay:.3s}.fade-in.d4{transition-delay:.4s}
+
+/* ── HERO ── */
+#hero{padding-top:150px;padding-bottom:80px;position:relative;overflow:hidden;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(var(--sage-mid) 1px,transparent 1px);background-size:34px 34px;opacity:.3;pointer-events:none}
+.hero-glow{position:absolute;top:-180px;right:-80px;width:680px;height:680px;background:radial-gradient(ellipse,rgba(94,138,116,.13) 0%,transparent 65%);pointer-events:none}
+.hero-glow-2{position:absolute;bottom:-100px;left:-60px;width:440px;height:440px;background:radial-gradient(ellipse,rgba(184,147,90,.07) 0%,transparent 65%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:660px}
+.eyebrow{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ochre);margin-bottom:22px;display:flex;align-items:center;gap:9px}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--ochre);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+h1.hero-title{font-size:clamp(38px,5.5vw,64px);font-weight:400;line-height:1.08;margin-bottom:22px;color:var(--midnight)}
+h1.hero-title em{font-style:italic;color:var(--sage)}
+.hero-sub{font-size:17px;color:var(--text-muted);line-height:1.75;margin-bottom:36px;max-width:540px;font-weight:400}
+.hero-ctas{display:flex;align-items:center;gap:14px;margin-bottom:56px;flex-wrap:wrap}
+.hero-stats{display:flex;align-items:center;gap:32px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap}
+.hero-stat-val{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--midnight);line-height:1}
+.hero-stat-label{font-size:11px;color:var(--text-xmuted);font-weight:500;margin-top:3px}
+.hero-visual{position:absolute;top:50%;right:max(-40px,calc(50vw - 600px - 300px));transform:translateY(-50%);width:500px;height:500px;z-index:1;opacity:.92}
+@media(max-width:900px){.hero-visual{display:none}}
+
+/* SVG animations */
+.node-ring{fill:none;stroke:var(--sage-light);stroke-width:1;opacity:.45}
+.pulse-ring{fill:none;stroke:var(--sage);stroke-width:1.5;animation:pulseRing 2.8s ease-out infinite;transform-box:view-box;transform-origin:250px 250px}
+@keyframes pulseRing{0%{transform:scale(.5);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+.conn-line{stroke:var(--sage-mid);stroke-width:1.2;stroke-dasharray:5 9;animation:dashFlow 3.5s linear infinite}
+.conn-line.alt{animation-duration:4.5s;animation-direction:reverse;stroke:var(--ochre-light)}
+@keyframes dashFlow{from{stroke-dashoffset:0}to{stroke-dashoffset:-56}}
+.orbit-g1{transform-box:view-box;transform-origin:250px 250px;animation:orbitCW 14s linear infinite}
+.orbit-g2{transform-box:view-box;transform-origin:250px 250px;animation:orbitCW 20s linear infinite reverse}
+@keyframes orbitCW{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.chip-bg{rx:11;fill:var(--ivory);stroke:var(--border);stroke-width:1}
+.chip-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:9.5px;font-weight:600;fill:var(--midnight)}
+
+/* ── PROBLEM ── */
+#problem{background:var(--midnight)}
+#problem .section-label{color:var(--sage-mid)}
+#problem .section-label::before{background:var(--sage-mid)}
+#problem h2{font-size:clamp(30px,4vw,50px);color:var(--ivory);max-width:640px;margin-bottom:52px}
+#problem h2 em{font-style:italic;color:var(--sage-mid)}
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.prob-card{border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:28px 30px;transition:border-color .3s,background .3s;cursor:default}
+.prob-card:hover{border-color:rgba(94,138,116,.35);background:rgba(94,138,116,.04)}
+.prob-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sage-mid);margin-bottom:14px}
+.prob-card h3{font-size:18px;font-weight:500;color:var(--ivory);margin-bottom:10px}
+.prob-card p{font-size:13.5px;color:rgba(248,246,241,.46);line-height:1.72}
+
+/* ── PLATFORM ── */
+#platform{background:var(--ivory-2)}
+#platform h2{font-size:clamp(30px,4vw,50px);max-width:560px;margin-bottom:10px}
+#platform h2 em{font-style:italic;color:var(--sage)}
+.platform-intro{font-size:16px;color:var(--text-muted);margin-bottom:52px;max-width:520px}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mod-card{background:var(--cream);border:1px solid var(--border-light);border-radius:20px;padding:30px 32px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:default}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.mod-card:nth-child(1)::before{background:var(--sage)}
+.mod-card:nth-child(2)::before{background:var(--ochre)}
+.mod-card:nth-child(3)::before{background:var(--mauve)}
+.mod-card:nth-child(4)::before{background:var(--midnight)}
+.mod-card:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(23,32,46,.09)}
+.mod-card:hover::before{transform:scaleX(1)}
+.mod-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px}
+.mod-card:nth-child(1) .mod-icon{background:var(--sage-light)}
+.mod-card:nth-child(2) .mod-icon{background:var(--ochre-light)}
+.mod-card:nth-child(3) .mod-icon{background:var(--mauve-light)}
+.mod-card:nth-child(4) .mod-icon{background:rgba(23,32,46,.07)}
+.mod-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.mod-card:nth-child(1) .mod-tag{color:var(--sage-dark)}
+.mod-card:nth-child(2) .mod-tag{color:var(--ochre-dark)}
+.mod-card:nth-child(3) .mod-tag{color:var(--mauve)}
+.mod-card:nth-child(4) .mod-tag{color:var(--midnight-2)}
+.mod-card h3{font-size:21px;font-weight:500;margin-bottom:10px}
+.mod-card p{font-size:13.5px;color:var(--text-muted);line-height:1.72;margin-bottom:18px}
+.mod-feats{display:flex;flex-direction:column;gap:5px}
+.mod-feat{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-muted)}
+.mod-feat::before{content:'→';font-size:11px;margin-top:1px;flex-shrink:0}
+.mod-card:nth-child(1) .mod-feat::before{color:var(--sage)}
+.mod-card:nth-child(2) .mod-feat::before{color:var(--ochre)}
+.mod-card:nth-child(3) .mod-feat::before{color:var(--mauve)}
+.mod-card:nth-child(4) .mod-feat::before{color:var(--midnight-2)}
+.mod-viz{height:58px;margin-top:22px;border-radius:10px;overflow:hidden;background:var(--ivory-2);position:relative}
+/* skill bars */
+.sbars{display:flex;align-items:flex-end;gap:4px;padding:8px 14px;height:100%}
+.sbar{flex:1;border-radius:3px 3px 0 0;animation:barGrow 2.4s ease-in-out infinite alternate}
+@keyframes barGrow{from{height:55%}to{height:95%}}
+/* risk dots */
+.rdots{display:flex;align-items:center;justify-content:flex-start;gap:5px;padding:0 14px;height:100%}
+.rdot{border-radius:50%;animation:rdotPulse 2.2s ease-in-out infinite}
+@keyframes rdotPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.65}}
+/* score bar */
+@keyframes scoreGrow{from{width:0}to{width:82%}}
+
+/* ── HOW IT WORKS ── */
+#how{background:var(--ivory)}
+#how h2{font-size:clamp(28px,3.5vw,44px);margin-bottom:56px;max-width:480px}
+#how h2 em{font-style:italic;color:var(--sage)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.steps::before{content:'';position:absolute;top:27px;left:calc(33.33%/2 + 16px);right:calc(33.33%/2 + 16px);height:1px;background:var(--sage-light)}
+.step-item{padding:0 22px}
+.step-num{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:500;margin-bottom:22px;position:relative;z-index:1}
+.step-item:nth-child(1) .step-num{background:var(--sage-light);color:var(--sage-dark)}
+.step-item:nth-child(2) .step-num{background:var(--ochre-light);color:var(--ochre-dark)}
+.step-item:nth-child(3) .step-num{background:var(--midnight);color:var(--ivory)}
+.step-item h3{font-size:18px;font-weight:500;margin-bottom:10px}
+.step-item p{font-size:13.5px;color:var(--text-muted);line-height:1.72}
+
+/* ── METRICS ── */
+#metrics{background:var(--midnight-2);padding:80px max(2rem,calc(50vw - 600px))}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr)}
+.met{padding:32px 20px;border-right:1px solid rgba(255,255,255,.07);text-align:center}
+.met:last-child{border-right:none}
+.met-val{font-family:'Fraunces',serif;font-size:54px;font-weight:400;color:var(--ivory);line-height:1;margin-bottom:8px;display:flex;align-items:flex-end;justify-content:center;gap:2px}
+.met-val .suf{font-size:26px;margin-bottom:7px;color:var(--sage-mid)}
+.met-lbl{font-size:12.5px;color:rgba(248,246,241,.42);font-weight:500;line-height:1.5;padding:0 8px}
+
+/* ── COMPARISON ── */
+#comparison{background:var(--ivory-2)}
+#comparison h2{font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;max-width:520px}
+#comparison h2 em{font-style:italic;color:var(--sage)}
+.comp-sub{font-size:16px;color:var(--text-muted);margin-bottom:44px;max-width:500px}
+table.comp{width:100%;border-collapse:collapse;border-radius:18px;overflow:hidden;box-shadow:0 4px 24px rgba(23,32,46,.08)}
+table.comp thead th{padding:16px 22px;font-size:13px;font-weight:600;text-align:left;background:var(--midnight);color:var(--ivory);font-family:'Plus Jakarta Sans',sans-serif}
+table.comp thead th.hl{background:var(--sage);color:white}
+table.comp tbody tr{border-bottom:1px solid var(--border-light);background:var(--cream);transition:background .15s}
+table.comp tbody tr:hover{background:var(--ivory)}
+table.comp tbody td{padding:13px 22px;font-size:13px;color:var(--text-muted)}
+table.comp tbody td:first-child{font-weight:500;color:var(--text)}
+table.comp tbody td.hl{color:var(--sage-dark);font-weight:600}
+.chk{color:var(--sage);font-size:15px}.crs{color:var(--rose);font-size:15px}.prt{color:var(--ochre);font-size:13px;font-style:italic}
+
+/* ── FOUNDER ── */
+#founder{background:var(--ivory)}
+.founder-wrap{display:grid;grid-template-columns:360px 1fr;gap:80px;align-items:start}
+.founder-left{}
+.founder-avatar{width:210px;height:210px;border-radius:22px;background:linear-gradient(140deg,var(--sage) 0%,var(--sage-dark) 100%);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:52px;font-weight:300;font-style:italic;color:white;position:relative;margin-bottom:0}
+.founder-avatar::after{content:'';position:absolute;inset:0;border-radius:22px;background:linear-gradient(to bottom,transparent 40%,rgba(58,94,76,.45))}
+.avatar-badge{display:inline-flex;align-items:center;gap:7px;background:var(--ivory);border:1px solid var(--border);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--sage-dark);margin-top:14px;white-space:nowrap}
+.avatar-badge::before{content:'';width:7px;height:7px;background:var(--sage);border-radius:50%;flex-shrink:0}
+.founder-name-block{margin-top:28px}
+.founder-name-block h3{font-size:26px;font-weight:500;margin-bottom:4px}
+.founder-role{font-size:13.5px;color:var(--text-muted);margin-bottom:18px;line-height:1.5}
+.founder-links{display:flex;gap:10px}
+.f-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:6px 14px;border-radius:100px;transition:all .2s}
+.f-link:hover{border-color:var(--sage);color:var(--sage-dark)}
+.founder-right .section-label{margin-bottom:22px}
+blockquote.founder-q{font-family:'Fraunces',serif;font-size:clamp(20px,2.8vw,30px);font-style:italic;font-weight:300;line-height:1.38;color:var(--midnight);margin-bottom:28px;padding-left:22px;border-left:3px solid var(--sage)}
+.founder-bio{font-size:14.5px;color:var(--text-muted);line-height:1.82;margin-bottom:22px}
+.founder-hls{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.f-hl{display:flex;gap:14px;align-items:flex-start}
+.f-hl-icon{width:34px;height:34px;border-radius:9px;background:var(--sage-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.f-hl-text{font-size:13.5px;color:var(--text-muted);line-height:1.65}
+.f-hl-text strong{color:var(--text);font-weight:600}
+
+/* ── CTA ── */
+#cta{background:var(--midnight);text-align:center;position:relative;overflow:hidden}
+#cta::before{content:'';position:absolute;top:-220px;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(ellipse,rgba(94,138,116,.14) 0%,transparent 65%);pointer-events:none}
+#cta::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(184,147,90,.06) 0%,transparent 65%);pointer-events:none}
+#cta h2{font-size:clamp(32px,5vw,58px);color:var(--ivory);max-width:560px;margin:0 auto 16px;position:relative}
+#cta h2 em{font-style:italic;color:var(--sage-mid)}
+#cta .cta-sub{font-size:16px;color:rgba(248,246,241,.5);margin-bottom:36px;max-width:380px;margin-left:auto;margin-right:auto;position:relative}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-cta{display:inline-flex;align-items:center;gap:8px;background:var(--sage);color:white;font-size:15px;font-weight:600;padding:15px 30px;border-radius:100px;text-decoration:none;transition:background .2s,transform .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-cta:hover{background:var(--sage-dark);transform:translateY(-1px)}
+.btn-cta-ghost{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.18);color:rgba(248,246,241,.78);font-size:15px;font-weight:500;padding:14px 28px;border-radius:100px;text-decoration:none;transition:border-color .2s,color .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-cta-ghost:hover{border-color:rgba(255,255,255,.45);color:white}
+.cta-note{margin-top:28px;font-size:12px;color:rgba(248,246,241,.25);position:relative}
+
+/* ── FOOTER ── */
+footer{background:var(--midnight);border-top:1px solid rgba(255,255,255,.06);padding:40px max(2rem,calc(50vw - 600px))}
+.footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-logo{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--ivory);text-decoration:none;display:flex;align-items:center;gap:7px}
+.footer-logo-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);display:inline-block}
+.footer-sub{font-size:12px;color:rgba(248,246,241,.28);margin-top:4px}
+.footer-links{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.footer-links a{font-size:13px;color:rgba(248,246,241,.4);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--ivory)}
+.footer-copy{font-size:12px;color:rgba(248,246,241,.22)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .prob-grid,.mod-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}.steps::before{display:none}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .met{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}
+  .met:last-child{border-bottom:none}
+  .founder-wrap{grid-template-columns:1fr;gap:40px}
+  .footer-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="nav">
+  <a href="#" class="logo">Clarivex<span class="logo-dot"></span></a>
+  <ul class="nav-links">
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#comparison">Why Clarivex</a></li>
+    <li><a href="#founder">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#cta" class="btn-ghost">Log in</a>
+    <a href="#cta" class="btn-dark">Request demo →</a>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-content fade-in">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>Talent intelligence · Mid-market companies</div>
+    <h1 class="hero-title">The intelligence your<br><em>people deserve.</em></h1>
+    <p class="hero-sub">Clarivex maps your skills gaps, predicts attrition 90 days early, surfaces internal talent, and structures every hire. Built for companies between 100 and 1,000 people — the segment Workday will never serve.</p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn-sage">Get a free skills audit →</a>
+      <a href="#platform" class="btn-outline">Explore the platform</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">78%</div><div class="hero-stat-label">Attrition accuracy</div></div>
+      <div><div class="hero-stat-val">14 days</div><div class="hero-stat-label">To full deployment</div></div>
+      <div><div class="hero-stat-val">4 modules</div><div class="hero-stat-label">Fully integrated</div></div>
+      <div><div class="hero-stat-val">$0</div><div class="hero-stat-label">Migration cost</div></div>
+    </div>
+  </div>
+
+  <!-- Animated skill network -->
+  <div class="hero-visual fade-in d2" aria-hidden="true">
+    <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <!-- Background rings -->
+      <circle cx="250" cy="250" r="195" class="node-ring" stroke-dasharray="6 14"/>
+      <circle cx="250" cy="250" r="132" class="node-ring" stroke-dasharray="4 9" opacity=".3"/>
+      <circle cx="250" cy="250" r="72" class="node-ring" opacity=".2"/>
+      <!-- Pulse rings -->
+      <circle cx="250" cy="250" r="36" class="pulse-ring"/>
+      <circle cx="250" cy="250" r="36" class="pulse-ring" style="animation-delay:.9s"/>
+      <circle cx="250" cy="250" r="36" class="pulse-ring" style="animation-delay:1.8s"/>
+      <!-- Connections -->
+      <line x1="250" y1="250" x2="250" y2="118" class="conn-line"/>
+      <line x1="250" y1="250" x2="367" y2="192" class="conn-line alt"/>
+      <line x1="250" y1="250" x2="382" y2="318" class="conn-line"/>
+      <line x1="250" y1="250" x2="155" y2="348" class="conn-line alt"/>
+      <line x1="250" y1="250" x2="124" y2="188" class="conn-line"/>
+      <line x1="250" y1="118" x2="367" y2="192" class="conn-line" style="opacity:.14"/>
+      <line x1="367" y1="192" x2="382" y2="318" class="conn-line" style="opacity:.14;animation-direction:reverse"/>
+      <line x1="382" y1="318" x2="155" y2="348" class="conn-line" style="opacity:.14"/>
+      <line x1="155" y1="348" x2="124" y2="188" class="conn-line" style="opacity:.14;animation-direction:reverse"/>
+      <!-- Orbit 1 -->
+      <g class="orbit-g1">
+        <circle cx="250" cy="55" r="20" fill="#B8935A" opacity=".13"/>
+        <circle cx="250" cy="55" r="10" fill="#B8935A"/>
+        <circle cx="435" cy="242" r="15" fill="#5E8A74" opacity=".13"/>
+        <circle cx="435" cy="242" r="7.5" fill="#5E8A74"/>
+        <circle cx="76" cy="296" r="15" fill="#8B7FA8" opacity=".13"/>
+        <circle cx="76" cy="296" r="7.5" fill="#8B7FA8"/>
+      </g>
+      <!-- Orbit 2 -->
+      <g class="orbit-g2">
+        <circle cx="398" cy="124" r="12" fill="#5E8A74" opacity=".12"/>
+        <circle cx="398" cy="124" r="6" fill="#5E8A74" opacity=".75"/>
+        <circle cx="108" cy="148" r="11" fill="#B8935A" opacity=".12"/>
+        <circle cx="108" cy="148" r="5.5" fill="#B8935A" opacity=".75"/>
+        <circle cx="356" cy="408" r="10" fill="#8B7FA8" opacity=".12"/>
+        <circle cx="356" cy="408" r="5" fill="#8B7FA8" opacity=".7"/>
+        <circle cx="154" cy="424" r="8" fill="#17202E" opacity=".18"/>
+        <circle cx="154" cy="424" r="4" fill="#17202E" opacity=".5"/>
+      </g>
+      <!-- Label chips -->
+      <g><rect x="205" y="90" width="90" height="24" class="chip-bg"/><text x="250" y="106" text-anchor="middle" class="chip-text">SkillGraph™</text></g>
+      <g><rect x="326" y="165" width="84" height="24" class="chip-bg"/><text x="368" y="181" text-anchor="middle" class="chip-text">PulseScore™</text></g>
+      <g><rect x="322" y="300" width="92" height="24" class="chip-bg"/><text x="368" y="316" text-anchor="middle" class="chip-text">InternalPath™</text></g>
+      <g><rect x="98" y="320" width="88" height="24" class="chip-bg"/><text x="142" y="336" text-anchor="middle" class="chip-text">InterviewIQ™</text></g>
+      <g><rect x="78" y="165" width="84" height="24" class="chip-bg"/><text x="120" y="181" text-anchor="middle" class="chip-text">100 – 1,000</text></g>
+      <!-- Center -->
+      <circle cx="250" cy="250" r="36" fill="#17202E"/>
+      <circle cx="250" cy="250" r="28" fill="#5E8A74" style="filter:drop-shadow(0 0 14px rgba(94,138,116,.45))"/>
+      <text x="250" y="255" text-anchor="middle" font-family="'Fraunces',serif" font-size="12" fill="white" font-weight="400" font-style="italic">Cx</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════════ PROBLEM ══════════════════ -->
+<section id="problem">
+  <div class="section-label fade-in">The intelligence gap</div>
+  <h2 class="fade-in d1">Workday won't touch you. BambooHR can't help you.<br>You're <em>building blind.</em></h2>
+  <div class="prob-grid">
+    <div class="prob-card fade-in d1">
+      <div class="prob-num">PROBLEM 01</div>
+      <h3>No skills inventory exists</h3>
+      <p>47% of mid-market HR teams have no structured record of what skills exist in their organization. Talent is rediscovered by accident — or lost entirely when someone walks out the door.</p>
+    </div>
+    <div class="prob-card fade-in d2">
+      <div class="prob-num">PROBLEM 02</div>
+      <h3>Attrition is invisible until it's too late</h3>
+      <p>HR learns someone is leaving when they hand in their notice. Behavioral signals that could have flagged the risk 90 days earlier go completely unread. Every resignation costs $45,000 on average.</p>
+    </div>
+    <div class="prob-card fade-in d3">
+      <div class="prob-num">PROBLEM 03</div>
+      <h3>Internal mobility consistently fails</h3>
+      <p>85%+ of open roles are filled externally while qualified employees leave for growth they didn't know was available two floors away from where they already work.</p>
+    </div>
+    <div class="prob-card fade-in d4">
+      <div class="prob-num">PROBLEM 04</div>
+      <h3>Interviews are unstructured vibe checks</h3>
+      <p>80% of mid-market interviews have no scoring rubric, no bias safeguards, and zero intelligence on whether the person across the table will succeed in the role you're hiring for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PLATFORM ══════════════════ -->
+<section id="platform">
+  <div class="section-label fade-in">The platform</div>
+  <h2 class="fade-in d1">Four modules. One system. <em>Two weeks.</em></h2>
+  <p class="platform-intro fade-in d2">Everything your HR team needs to make talent decisions with real confidence — connected, intelligent, live in 14 days, no data migration required.</p>
+
+  <div class="mod-grid">
+    <!-- SkillGraph -->
+    <div class="mod-card fade-in d1">
+      <div class="mod-icon">🗺️</div>
+      <div class="mod-tag">Module 01</div>
+      <h3>SkillGraph™</h3>
+      <p>A live, AI-generated map of every skill in your organization. Know exactly where your gaps are, who can fill them, and whether to hire or train — before your next planning cycle.</p>
+      <div class="mod-feats">
+        <div class="mod-feat">NLP extraction from resumes, reviews &amp; JDs</div>
+        <div class="mod-feat">ESCO/O*NET-aligned 4,200-skill taxonomy</div>
+        <div class="mod-feat">Hire vs. Train cost engine per gap</div>
+        <div class="mod-feat">Live org-wide skill heatmap</div>
+      </div>
+      <div class="mod-viz">
+        <div class="sbars">
+          <div class="sbar" style="background:rgba(94,138,116,.38);animation-delay:0s;height:48%"></div>
+          <div class="sbar" style="background:rgba(94,138,116,.58);animation-delay:.1s;height:72%"></div>
+          <div class="sbar" style="background:#5E8A74;animation-delay:.2s;height:88%"></div>
+          <div class="sbar" style="background:rgba(94,138,116,.48);animation-delay:.3s;height:54%"></div>
+          <div class="sbar" style="background:rgba(184,147,90,.58);animation-delay:.4s;height:34%"></div>
+          <div class="sbar" style="background:rgba(184,147,90,.38);animation-delay:.5s;height:24%"></div>
+          <div class="sbar" style="background:rgba(94,138,116,.68);animation-delay:.6s;height:68%"></div>
+          <div class="sbar" style="background:#5E8A74;animation-delay:.7s;height:90%"></div>
+          <div class="sbar" style="background:rgba(184,147,90,.48);animation-delay:.8s;height:40%"></div>
+          <div class="sbar" style="background:rgba(94,138,116,.32);animation-delay:.9s;height:28%"></div>
+          <div class="sbar" style="background:rgba(94,138,116,.55);animation-delay:1s;height:62%"></div>
+          <div class="sbar" style="background:#5E8A74;animation-delay:1.1s;height:94%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PulseScore -->
+    <div class="mod-card fade-in d2">
+      <div class="mod-icon">💓</div>
+      <div class="mod-tag">Module 02</div>
+      <h3>PulseScore™</h3>
+      <p>Know who's about to leave — 90 days before they do. Eleven behavioral signals, real-time comp benchmarks, and ML attrition modeling deliver a weekly flight risk score for every employee.</p>
+      <div class="mod-feats">
+        <div class="mod-feat">11 behavioral signals, privacy-first design</div>
+        <div class="mod-feat">78% prediction accuracy at 90-day horizon</div>
+        <div class="mod-feat">Manager retention playbooks per risk level</div>
+        <div class="mod-feat">Real-time comp vs. market (Levels.fyi + Glassdoor)</div>
+      </div>
+      <div class="mod-viz">
+        <div class="rdots" style="padding:0 14px;gap:6px">
+          <div class="rdot" style="background:#5E8A74;width:10px;height:10px;animation-delay:0s"></div>
+          <div class="rdot" style="background:#5E8A74;width:10px;height:10px;animation-delay:.15s"></div>
+          <div class="rdot" style="background:#A3C2B4;width:9px;height:9px;animation-delay:.3s"></div>
+          <div class="rdot" style="background:#B8935A;width:9px;height:9px;animation-delay:.45s"></div>
+          <div class="rdot" style="background:#B8935A;width:11px;height:11px;animation-delay:.6s"></div>
+          <div class="rdot" style="background:#C4877A;width:13px;height:13px;animation-delay:.75s"></div>
+          <div class="rdot" style="background:#C4877A;width:11px;height:11px;animation-delay:.9s"></div>
+          <div class="rdot" style="background:#B8935A;width:9px;height:9px;animation-delay:1.05s"></div>
+          <div style="width:1px;height:32px;background:var(--border);margin:0 4px;flex-shrink:0"></div>
+          <div style="font-size:9.5px;color:var(--text-muted);font-weight:600;white-space:nowrap">Risk spectrum →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- InternalPath -->
+    <div class="mod-card fade-in d3">
+      <div class="mod-icon">🧭</div>
+      <div class="mod-tag">Module 03</div>
+      <h3>InternalPath™</h3>
+      <p>A two-sided internal talent marketplace. AI matches employees to open roles based on skills and career goals — including the "70% match" candidate who can be ready in 90 days of upskilling.</p>
+      <div class="mod-feats">
+        <div class="mod-feat">Quarterly career interest survey + AI matching</div>
+        <div class="mod-feat">90-day upskill bridge with LMS integration</div>
+        <div class="mod-feat">Employee-facing career path portal</div>
+        <div class="mod-feat">Time-to-fill: 90 days → 28 days internally</div>
+      </div>
+      <div class="mod-viz">
+        <svg viewBox="0 0 260 58" style="width:100%;height:100%;padding:8px 14px">
+          <circle cx="22" cy="29" r="10" fill="#5E8A74" opacity=".15"/>
+          <circle cx="22" cy="29" r="6" fill="#5E8A74"/>
+          <line x1="32" y1="29" x2="74" y2="29" stroke="#A3C2B4" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <circle cx="84" cy="29" r="8" fill="#B8935A" opacity=".15"/>
+          <circle cx="84" cy="29" r="5" fill="#B8935A"/>
+          <line x1="92" y1="29" x2="144" y2="29" stroke="#A3C2B4" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <circle cx="154" cy="29" r="8" fill="#8B7FA8" opacity=".15"/>
+          <circle cx="154" cy="29" r="5" fill="#8B7FA8"/>
+          <line x1="162" y1="29" x2="212" y2="29" stroke="#A3C2B4" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <circle cx="222" cy="29" r="10" fill="#17202E" opacity=".1"/>
+          <circle cx="222" cy="29" r="6" fill="#17202E"/>
+          <circle r="4" fill="white" opacity=".9">
+            <animateMotion dur="3s" repeatCount="indefinite" path="M22,29 L222,29"/>
+          </circle>
+          <text x="22" y="48" text-anchor="middle" font-size="8" fill="#9AA3AF" font-family="'Plus Jakarta Sans',sans-serif">Now</text>
+          <text x="222" y="48" text-anchor="middle" font-size="8" fill="#9AA3AF" font-family="'Plus Jakarta Sans',sans-serif">Target</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- InterviewIQ -->
+    <div class="mod-card fade-in d4">
+      <div class="mod-icon">🎯</div>
+      <div class="mod-tag">Module 04</div>
+      <h3>InterviewIQ™</h3>
+      <p>Turn unstructured interviews into scored, documented, bias-checked intelligence. AI-generated guides, real-time note capture, post-interview summaries, and a predictive hire score in 3 minutes.</p>
+      <div class="mod-feats">
+        <div class="mod-feat">Role-specific structured interview guide generation</div>
+        <div class="mod-feat">Real-time AI note structuring &amp; 3-min summary</div>
+        <div class="mod-feat">Bias detection in evaluative language</div>
+        <div class="mod-feat">Predictive hire score with confidence interval</div>
+      </div>
+      <div class="mod-viz">
+        <div style="display:flex;gap:8px;padding:10px 16px;align-items:center;height:100%">
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--text-xmuted);margin-bottom:5px;font-weight:600;letter-spacing:.5px">INTERVIEW SCORE</div>
+            <div style="height:5px;background:var(--border-light);border-radius:3px;overflow:hidden">
+              <div id="score-bar" style="width:0%;height:100%;background:var(--midnight);border-radius:3px;transition:width 1.5s cubic-bezier(.34,1.56,.64,1)"></div>
+            </div>
+          </div>
+          <div style="width:1px;height:32px;background:var(--border);flex-shrink:0"></div>
+          <div style="text-align:center;flex-shrink:0">
+            <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--midnight);line-height:1">82<span style="font-size:11px;color:var(--text-muted)">/100</span></div>
+            <div style="font-size:9px;color:var(--sage-dark);font-weight:700;letter-spacing:.4px;margin-top:2px">STRONG HIRE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+<section id="how">
+  <div class="section-label fade-in">How it works</div>
+  <h2 class="fade-in d1">From day one to live intelligence<br><em>in two weeks.</em></h2>
+  <div class="steps">
+    <div class="step-item fade-in d1">
+      <div class="step-num">01</div>
+      <h3>Connect your stack</h3>
+      <p>Read-only API connections to your HRIS, ATS, calendar, and comms tools in hours. BambooHR, Rippling, ADP, Greenhouse, Lever — all supported. No migration, no new system of record.</p>
+    </div>
+    <div class="step-item fade-in d2">
+      <div class="step-num">02</div>
+      <h3>AI builds your baseline</h3>
+      <p>Within 48 hours Clarivex generates your first SkillGraph heatmap, runs PulseScore across your team, and populates your internal talent pipeline. Your CHRO reviews and calibrates in a 60-minute session.</p>
+    </div>
+    <div class="step-item fade-in d3">
+      <div class="step-num">03</div>
+      <h3>Act on weekly intelligence</h3>
+      <p>Every Monday, HR receives a live digest: updated flight risks, skills coverage changes, internal mobility matches, and hiring recommendations. Better decisions — every single week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ METRICS ══════════════════ -->
+<section id="metrics">
+  <div class="metrics-row">
+    <div class="met fade-in">
+      <div class="met-val"><span class="counter" data-target="78" data-suffix="%">0%</span></div>
+      <div class="met-lbl">Attrition prediction accuracy at 90-day horizon</div>
+    </div>
+    <div class="met fade-in d1">
+      <div class="met-val"><span class="counter" data-target="14">0</span><span class="suf">&thinsp;days</span></div>
+      <div class="met-lbl">Average time from signup to full deployment</div>
+    </div>
+    <div class="met fade-in d2">
+      <div class="met-val"><span class="suf">$</span><span class="counter" data-target="45">0</span><span class="suf">K</span></div>
+      <div class="met-lbl">Average cost of a single employee attrition event</div>
+    </div>
+    <div class="met fade-in d3">
+      <div class="met-val"><span class="counter" data-target="40" data-suffix="%">0%</span></div>
+      <div class="met-lbl">Average reduction in external hiring via InternalPath™</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ COMPARISON ══════════════════ -->
+<section id="comparison">
+  <div class="section-label fade-in">Why Clarivex</div>
+  <h2 class="fade-in d1">Not Workday. Not BambooHR.<br><em>Something built for you.</em></h2>
+  <p class="comp-sub fade-in d2">Every tool on the market either costs $500K to implement or stops at record-keeping. Clarivex is the first talent intelligence platform designed from the ground up for the 68,000 US companies between 100 and 1,000 people.</p>
+  <div class="fade-in d2">
+    <table class="comp">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Workday</th>
+          <th>BambooHR / Rippling</th>
+          <th class="hl">Clarivex ✦</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Target company size</td><td>1,000+ employees</td><td>10–500 (basic)</td><td class="hl">100–1,000 employees</td></tr>
+        <tr><td>Skills gap mapping</td><td><span class="chk">✓</span></td><td><span class="crs">✗</span></td><td class="hl"><span class="chk">✓</span></td></tr>
+        <tr><td>Attrition prediction</td><td><span class="chk">✓</span></td><td><span class="crs">✗</span></td><td class="hl"><span class="chk">✓</span></td></tr>
+        <tr><td>Internal mobility matching</td><td><span class="prt">Partial</span></td><td><span class="crs">✗</span></td><td class="hl"><span class="chk">✓</span></td></tr>
+        <tr><td>Interview intelligence</td><td><span class="crs">✗</span></td><td><span class="crs">✗</span></td><td class="hl"><span class="chk">✓</span></td></tr>
+        <tr><td>Deployment time</td><td>9–18 months</td><td>1–4 weeks (setup)</td><td class="hl">14 days (full platform)</td></tr>
+        <tr><td>Pricing model</td><td>$200K+ implementation</td><td>Per seat, HRIS only</td><td class="hl">$7–9 PEPM, transparent</td></tr>
+        <tr><td>Data migration required</td><td><span class="crs">Yes</span></td><td>Sometimes</td><td class="hl"><span class="chk">Never</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════ FOUNDER ══════════════════ -->
+<section id="founder">
+  <div class="founder-wrap">
+    <div class="founder-left fade-in">
+      <div class="founder-avatar">Z.J.</div>
+      <div class="avatar-badge">Founder &amp; CEO, Clarivex</div>
+      <div class="founder-name-block">
+        <h3>Zoya Jamadar</h3>
+        <div class="founder-role">Founder &amp; CEO · Clarivex<br>Previously: People Analytics Lead at Sequoia-backed B2B SaaS (Series C)</div>
+        <div class="founder-links">
+          <a href="#" class="f-link">LinkedIn ↗</a>
+          <a href="#" class="f-link">Contact ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="founder-right fade-in d2">
+      <div class="section-label">The founder</div>
+      <blockquote class="founder-q">"I spent three years watching mid-market companies make their most important decisions — who to trust, who to grow, who was quietly about to leave — completely blind. Clarivex is the product I wished I had."</blockquote>
+      <p class="founder-bio">Zoya built Clarivex after leading People Analytics across three Series B–D companies, watching CHROs run talent strategy on gut feel and spreadsheets while enterprise tools like Workday sat priced entirely out of reach. The core insight was not a technology gap — it was a product design gap. Nobody had built intelligence for the middle market because they were too busy scaling for the top.</p>
+      <p class="founder-bio">Clarivex was co-built alongside 10 design partner CHROs over four months of weekly sessions, ensuring every module solves a real workflow problem. The result is the platform Zoya wished she had — built on the belief that a 300-person company deserves the same talent intelligence as a 30,000-person one.</p>
+      <div class="founder-hls">
+        <div class="f-hl">
+          <div class="f-hl-icon">📊</div>
+          <div class="f-hl-text"><strong>3 years in People Analytics</strong> at VC-backed B2B SaaS companies — witnessed the intelligence gap firsthand, at three different companies, across every stage of growth.</div>
+        </div>
+        <div class="f-hl">
+          <div class="f-hl-icon">🤝</div>
+          <div class="f-hl-text"><strong>10 design partner CHROs</strong> co-built the platform alongside the Clarivex team — every module is rooted in real workflows, not theoretical problems.</div>
+        </div>
+        <div class="f-hl">
+          <div class="f-hl-icon">🎓</div>
+          <div class="f-hl-text"><strong>CS + Organizational Psychology</strong> background — a rare combination that shapes how Clarivex thinks about people data, AI ethics, and the human side of talent decisions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA ══════════════════ -->
+<section id="cta">
+  <h2 class="fade-in">See your talent gap.<br><em>In 14 days.</em></h2>
+  <p class="cta-sub fade-in d1">Free skills audit for companies between 100 and 1,000 employees. No migration, no commitment, no Workday budget required.</p>
+  <div class="cta-btns fade-in d2">
+    <a href="#" class="btn-cta">Get your free skills audit →</a>
+    <a href="#" class="btn-cta-ghost">Schedule a demo</a>
+  </div>
+  <p class="cta-note fade-in d3">14-day deployment · No data migration · GDPR + CCPA compliant · SOC 2 Type II certified</p>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-row">
+    <div>
+      <a href="#" class="footer-logo">Clarivex<span class="footer-logo-dot"></span></a>
+      <div class="footer-sub">Talent intelligence for the middle market.</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#comparison">Why Clarivex</a></li>
+      <li><a href="#founder">About</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Security</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Clarivex, Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// ── Nav scroll ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 16);
+}, { passive: true });
+
+// ── Scroll fade-in ──
+const fades = document.querySelectorAll('.fade-in');
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+fades.forEach(el => fadeObs.observe(el));
+
+// ── Counter animation ──
+function runCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(tick);
+}
+const counters = document.querySelectorAll('.counter');
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { runCounter(e.target); cntObs.unobserve(e.target); }
+  });
+}, { threshold: 0.4 });
+counters.forEach(el => cntObs.observe(el));
+
+// ── Score bar animation ──
+const scoreBar = document.getElementById('score-bar');
+if (scoreBar) {
+  const sbObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { scoreBar.style.width = '82%'; sbObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  sbObs.observe(scoreBar);
+}
+
+// ── Smooth scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
